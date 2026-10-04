@@ -1,0 +1,11 @@
+{
+  "$comment": "Set vault to your own local notes folder. This starter imports the bundled Markdown example.",
+  "vault": "docs/examples",
+  "output": "public/content/essays",
+  "maxImageWidth": 1600,
+  "maxImageBytes": 400000,
+  "stripLinePatterns": [],
+  "notes": [
+    { "source": "first-post.md", "folder": "我的文章", "slug": "first-post", "title": "我的第一篇文章", "tags": ["示例"] }
+  ]
+}

@@ -1,0 +1,156 @@
+.avatar-stage {
+  position: relative;
+  height: 100%;
+  min-height: 360px;
+  aspect-ratio: 1086 / 1448;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-pixel);
+  background: #3a8ee8;
+  isolation: isolate;
+}
+.avatar-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  user-select: none;
+}
+/* blocky clouds drawn with box-shadows, drifting across the sky */
+.avatar-clouds i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  box-shadow:
+    10px 0 #fff, 20px 0 #fff, 30px 0 #fff, 40px 0 #fff,
+    10px -10px #fff, 20px -10px #fff, 30px -10px #fff,
+    20px -20px #fff,
+    -10px 0 #e8f1fb, 50px 0 #e8f1fb, 0 10px #dbe8f8, 10px 10px #dbe8f8, 20px 10px #dbe8f8, 30px 10px #dbe8f8, 40px 10px #dbe8f8;
+  opacity: 0.95;
+  animation: cloud-drift linear infinite;
+}
+.avatar-clouds .c1 {
+  top: 9%;
+  animation-duration: 38s;
+  animation-delay: -6s;
+}
+.avatar-clouds .c2 {
+  top: 17%;
+  transform: scale(0.7);
+  animation-duration: 52s;
+  animation-delay: -30s;
+}
+.avatar-clouds .c3 {
+  top: 4%;
+  transform: scale(1.2);
+  animation-duration: 64s;
+  animation-delay: -48s;
+}
+@keyframes cloud-drift {
+  from {
+    left: -20%;
+  }
+  to {
+    left: 110%;
+  }
+}
+/* character placed exactly where it was cut from the scene */
+.avatar-hero {
+  position: absolute;
+  left: 30.39%;
+  top: 30.32%;
+  width: 35.91%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  animation: breathe 2.4s steps(2, end) infinite;
+}
+.avatar-hero img {
+  width: 100%;
+  image-rendering: pixelated;
+  user-select: none;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.12));
+}
+.avatar-hero:focus-visible {
+  outline: 2px dashed #fff;
+  box-shadow: none;
+}
+@keyframes breathe {
+  50% {
+    transform: scaleY(1.012) translateY(-1px);
+  }
+}
+.avatar-hero.jump {
+  animation: hop 0.6s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+@keyframes hop {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  15% {
+    transform: translateY(0) scaleY(0.94);
+  }
+  45% {
+    transform: translateY(-9%) scaleY(1.03);
+  }
+  75% {
+    transform: translateY(0) scaleY(0.97);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+.avatar-bubble {
+  position: absolute;
+  left: 52%;
+  top: 19%;
+  max-width: 44%;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #1d2330;
+  background: #fff;
+  border: 2px solid #1d2330;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 rgba(29, 35, 48, 0.25);
+  animation: bubble-in 0.35s steps(3, end) both;
+}
+.avatar-bubble::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  bottom: -10px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-left: 2px solid #1d2330;
+  border-bottom: 2px solid #1d2330;
+  transform: skewY(-35deg);
+}
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.avatar-badge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 2px 8px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: rgba(29, 35, 48, 0.55);
+  border-radius: 4px;
+}

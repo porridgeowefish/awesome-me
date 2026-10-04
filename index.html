@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="awesome-me：可自托管的个人网站与内容工作室。" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>awesome-me · 个人网站与内容工作室</title>
+    <script>
+      // Apply the theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem('awesome-me:site.theme'));
+        } catch (e) {}
+        if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>这个网站需要启用 JavaScript。</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

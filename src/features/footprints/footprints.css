@@ -1,0 +1,352 @@
+.fp-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: stretch;
+}
+.fp-map {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+}
+.map-canvas {
+  position: relative;
+  flex: 1;
+  min-height: 480px;
+}
+.map-el {
+  position: absolute;
+  inset: 0;
+}
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+}
+.fp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.fp-chips .chip {
+  cursor: pointer;
+}
+.fp-chips .chip:hover,
+.fp-chips .chip.on {
+  border-color: var(--ember);
+  color: var(--ember);
+  background: var(--ember-soft);
+}
+
+.fp-detail {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  width: min(300px, calc(100% - 28px));
+  max-height: calc(100% - 100px);
+  overflow-y: auto;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  animation: fade-in 0.3s var(--ease) both;
+}
+.fp-detail h3 {
+  font-size: 20px;
+}
+.fp-region {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.fp-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+}
+.wish-eyebrow {
+  color: var(--ember);
+}
+.fp-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+.fp-photo-count {
+  font-size: 11px;
+  color: var(--muted);
+}
+.fp-photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.2s var(--ease);
+}
+.fp-photos a:hover img {
+  transform: scale(1.05);
+}
+
+/* ---------- AMap markers (HTML injected by the SDK, hence global) ---------- */
+.px-pin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+}
+.px-pin i {
+  width: 18px;
+  height: 18px;
+  background: var(--ember);
+  border: 3px solid #fff;
+  box-shadow:
+    2px 2px 0 rgba(0, 0, 0, 0.35),
+    0 0 0 2px var(--ember);
+  transition: transform 0.2s;
+}
+.px-pin span {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1d2330;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.px-pin-wish i {
+  background: transparent;
+  border: 2px dashed var(--sky);
+  box-shadow: none;
+}
+.px-pin-wish span {
+  color: #2f80ed;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.px-pin.is-selected i {
+  transform: scale(1.35) rotate(45deg);
+}
+.px-pin.is-selected span {
+  background: #1d2330;
+  color: #fff;
+}
+
+/* ---------- offline fallback map ---------- */
+.fallback-map svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.fm-cell {
+  fill: var(--surface-2);
+}
+.fm-place {
+  cursor: pointer;
+}
+.fm-place rect {
+  fill: var(--ember);
+  stroke: var(--surface);
+  stroke-width: 3;
+  transition: transform 0.2s;
+}
+.fm-wish rect {
+  fill: transparent;
+  stroke: var(--sky);
+  stroke-dasharray: 3 2;
+  stroke-width: 2;
+}
+.fm-place text {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+}
+.fm-wish text {
+  fill: var(--sky);
+  font-weight: 500;
+}
+.fm-place.is-selected rect {
+  transform: scale(1.4) rotate(45deg);
+}
+.fallback-retry {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: none;
+  color: var(--accent);
+  font-size: 12px;
+}
+.fallback-note {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* ---------- wish drum ---------- */
+.fp-wishes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fp-wishes header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 2px;
+  color: var(--ember);
+}
+.fp-wishes header div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.fp-wishes header strong {
+  color: var(--ink);
+}
+.fp-wishes header span {
+  font-size: 12.5px;
+}
+.wish-drum {
+  position: relative;
+  flex: 1;
+  min-height: 460px;
+  perspective: 900px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(var(--surface-2), transparent 22%, transparent 78%, var(--surface-2)),
+    repeating-linear-gradient(0deg, transparent 0 11px, var(--bg-grid) 11px 12px);
+  border: 1px dashed var(--border-strong);
+}
+.wish-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 50%;
+  height: 104px;
+  margin-top: -52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding: 12px 16px;
+  text-align: left;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-pixel);
+  transform: translateY(calc(var(--off) * 112px)) rotateX(calc(var(--off) * -22deg)) scale(calc(1 - var(--abs) * 0.08));
+  opacity: calc(1 - var(--abs) * 0.33);
+  z-index: calc(10 - var(--abs));
+  transition:
+    transform 0.7s var(--ease),
+    opacity 0.7s var(--ease),
+    border-color 0.2s;
+}
+.wish-card.is-front {
+  border-color: var(--ember);
+}
+.wish-card.is-picked {
+  background: var(--ember-soft);
+}
+.wish-card strong {
+  font-size: 18px;
+}
+.wish-region {
+  font-size: 12px;
+  color: var(--ember);
+  font-weight: 600;
+}
+.wish-reason {
+  font-size: 13px;
+  color: var(--muted);
+}
+.wish-dots {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 5px;
+  z-index: 20;
+}
+.wish-dots i {
+  width: 4px;
+  height: 4px;
+  background: var(--border-strong);
+}
+.wish-dots i.on {
+  height: 12px;
+  background: var(--ember);
+}
+.wish-toggle {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+.wish-drum.is-static {
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  min-height: 0;
+}
+.wish-drum.is-static .wish-card {
+  position: static;
+  margin: 0;
+  transform: none;
+  opacity: 1;
+}
+
+@media (max-width: 960px) {
+  .fp-layout {
+    grid-template-columns: 1fr;
+  }
+  .fp-map {
+    min-height: 460px;
+  }
+  .map-canvas {
+    min-height: 400px;
+  }
+  .wish-drum {
+    min-height: 340px;
+  }
+}

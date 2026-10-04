@@ -1,0 +1,56 @@
+.me-head h1 {
+  font-size: clamp(28px, 4vw, 40px);
+}
+.wave {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--accent);
+  font-family: var(--font-pixel);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.me-play {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: stretch;
+}
+.me-play.me-play-single { grid-template-columns: minmax(0, 1fr); }
+.me-play-single .avatar-card { max-width: 640px; width: 100%; justify-self: center; }
+.play-card {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+.card-head .muted {
+  margin-left: auto;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+}
+.avatar-card .avatar-stage {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  max-height: 520px;
+}
+@media (max-width: 900px) {
+  .me-play {
+    grid-template-columns: 1fr;
+  }
+  .avatar-card .avatar-stage {
+    width: min(100%, 360px);
+  }
+}

@@ -1,0 +1,326 @@
+@import 'highlight.js/styles/github.css';
+
+.markdown {
+  font-size: 16.5px;
+  line-height: 1.88;
+  color: var(--ink-2);
+  word-wrap: break-word;
+}
+.markdown > * + * {
+  margin-top: 1.05em;
+}
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5 {
+  color: var(--ink);
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+  margin-top: 2em;
+  margin-bottom: -0.2em;
+}
+.markdown h1 {
+  font-size: 1.55em;
+}
+.markdown h2 {
+  font-size: 1.38em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+}
+.markdown h2::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  vertical-align: 0.2em;
+  background: var(--accent);
+  box-shadow: 8px 0 0 color-mix(in srgb, var(--accent) 40%, transparent);
+  margin-right: 18px;
+}
+.markdown h3 {
+  font-size: 1.16em;
+}
+.markdown h4,
+.markdown h5 {
+  font-size: 1.02em;
+}
+.markdown strong {
+  color: var(--ink);
+}
+.markdown a {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.markdown a:hover {
+  text-decoration: none;
+  border-bottom-color: var(--accent);
+}
+.markdown ul,
+.markdown ol {
+  padding-left: 1.5em;
+}
+.markdown li + li,
+.markdown li > ul,
+.markdown li > ol {
+  margin-top: 0.3em;
+}
+.markdown li::marker {
+  color: var(--muted);
+}
+.markdown blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.6em 1.1em;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.markdown blockquote > * + * {
+  margin-top: 0.6em;
+}
+.markdown hr {
+  border: none;
+  height: 8px;
+  margin: 2.2em auto;
+  width: 64px;
+  background:
+    radial-gradient(circle, var(--border-strong) 3px, transparent 3.5px) 0 0 / 22px 8px repeat-x;
+}
+.markdown mark {
+  background: color-mix(in srgb, var(--ember) 28%, transparent);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+.markdown :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+.markdown img.md-img {
+  margin: 0.4em auto;
+  max-height: 560px;
+  width: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  cursor: zoom-in;
+  background: #fff;
+}
+
+.markdown img.md-img.is-broken {
+  min-width: 160px;
+  min-height: 60px;
+  cursor: default;
+  border-style: dashed;
+}
+
+/* code blocks */
+.md-code {
+  position: relative;
+}
+.md-code pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.65;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.md-code pre code.hljs {
+  background: transparent;
+  padding: 0;
+}
+.md-code-lang {
+  position: absolute;
+  top: 8px;
+  right: 64px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.md-copy {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.md-code:hover .md-copy,
+.md-copy:focus-visible {
+  opacity: 1;
+}
+
+/* tables */
+.md-table {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.md-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.md-table th,
+.md-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.md-table th {
+  background: var(--surface-2);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.md-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* diagrams & svg */
+.md-diagram,
+.md-svg {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+.md-diagram svg,
+.md-svg svg {
+  max-width: 100%;
+  height: auto;
+}
+.md-diagram-loading {
+  min-height: 160px;
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 8%, transparent), transparent) 0 0 / 200% 100%,
+    var(--surface);
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0, 0 0;
+  }
+}
+.md-diagram-error {
+  display: block;
+  border-style: dashed;
+  border-color: var(--berry);
+}
+.md-diagram-error figcaption {
+  font-size: 13px;
+  color: var(--berry);
+  margin-bottom: 8px;
+}
+.md-diagram-error pre {
+  margin: 0;
+  font-size: 12.5px;
+  overflow: auto;
+}
+
+/* math */
+.markdown .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* task lists */
+.markdown .contains-task-list {
+  list-style: none;
+  padding-left: 0.4em;
+}
+.markdown input[type='checkbox'] {
+  margin-right: 8px;
+  accent-color: var(--pine);
+}
+
+/* rich text helpers */
+.markdown p svg,
+.markdown li svg,
+.markdown td svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+.markdown kbd {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 3px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.markdown details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  background: var(--surface);
+}
+.markdown summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+.markdown video {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+/* highlight.js colours for dark mode */
+:root[data-theme='dark'] .hljs {
+  color: #c9d1d9;
+}
+:root[data-theme='dark'] .hljs-keyword,
+:root[data-theme='dark'] .hljs-meta .hljs-keyword,
+:root[data-theme='dark'] .hljs-doctag,
+:root[data-theme='dark'] .hljs-template-tag,
+:root[data-theme='dark'] .hljs-type {
+  color: #ff7b72;
+}
+:root[data-theme='dark'] .hljs-title,
+:root[data-theme='dark'] .hljs-title.function_ {
+  color: #d2a8ff;
+}
+:root[data-theme='dark'] .hljs-attr,
+:root[data-theme='dark'] .hljs-number,
+:root[data-theme='dark'] .hljs-literal,
+:root[data-theme='dark'] .hljs-variable,
+:root[data-theme='dark'] .hljs-built_in {
+  color: #79c0ff;
+}
+:root[data-theme='dark'] .hljs-string,
+:root[data-theme='dark'] .hljs-regexp {
+  color: #a5d6ff;
+}
+:root[data-theme='dark'] .hljs-comment {
+  color: #8b949e;
+}
+:root[data-theme='dark'] .md-diagram,
+:root[data-theme='dark'] .md-svg {
+  background: #1b2030;
+}

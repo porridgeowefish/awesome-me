@@ -1,0 +1,147 @@
+.runner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.runner-hud {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--ink);
+}
+.runner-hud em {
+  font-style: normal;
+  color: var(--muted);
+  margin-right: 2px;
+}
+.runner-hint {
+  margin-left: auto;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--muted);
+}
+.runner-sound {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+.runner-board {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-pixel);
+  background: var(--surface);
+  outline: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.runner-board:focus-visible {
+  box-shadow: var(--shadow-pixel), var(--ring);
+}
+.runner-board canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 640 / 280;
+  image-rendering: pixelated;
+}
+.runner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  text-align: center;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  animation: fade-in 0.25s var(--ease) both;
+}
+.runner-overlay strong {
+  font-family: var(--font-pixel);
+  font-size: clamp(18px, 3vw, 26px);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.runner-overlay p {
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.runner-start {
+  margin-top: 4px;
+  padding: 8px 22px;
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--ember);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.08s;
+}
+.runner-start:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.runner-start:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.runner-pad {
+  display: none;
+  gap: 10px;
+}
+.runner-pad button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 46px;
+  border-radius: 10px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  box-shadow: 2px 2px 0 var(--ink);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.runner-pad button:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+@media (hover: none) and (pointer: coarse) {
+  .runner-pad {
+    display: flex;
+  }
+  .runner-hint {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .runner-overlay {
+    gap: 4px;
+    padding: 8px;
+  }
+  .runner-overlay p {
+    display: none;
+  }
+  .runner-start {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+const source=path.resolve('tools/skills/personal-site-cms');
+const root=path.resolve(process.env.CODEX_HOME??path.join(os.homedir(),'.codex'),'skills');
+const target=path.join(root,'personal-site-cms');
+if(!fs.existsSync(path.join(source,'SKILL.md')))throw new Error('请在 awesome-me 项目目录运行');
+if(fs.existsSync(target)&&!fs.existsSync(path.join(target,'project-path.txt')))throw new Error('目标 Skill 已存在且不属于此项目，请保留原 Skill');
+if(fs.existsSync(path.join(target,'project-path.txt'))&&fs.readFileSync(path.join(target,'project-path.txt'),'utf8').trim()!==process.cwd())throw new Error('目标 Skill 属于另一份项目');
+fs.mkdirSync(root,{recursive:true});fs.cpSync(source,target,{recursive:true});
+fs.writeFileSync(path.join(target,'project-path.txt'),process.cwd(),'utf8');
+console.log(`Skill installed: ${target}`);

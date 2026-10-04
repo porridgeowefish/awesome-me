@@ -1,0 +1,63 @@
+/* Design tokens — every colour / size used in the UI comes from here.
+   Palette is sampled from the pixel portrait: sky blue, pine green, boot orange. */
+:root {
+  --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Songti SC', 'STSong', 'Noto Serif SC', 'Source Han Serif SC', Georgia, serif;
+  --font-pixel: 'Silkscreen', 'Courier New', monospace;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'SFMono-Regular', Menlo, monospace;
+
+  --bg: #f3efe6;
+  --bg-grid: rgba(30, 36, 48, 0.035);
+  --surface: #fffdf8;
+  --surface-2: #f8f4ec;
+  --ink: #1d2330;
+  --ink-2: #3b4352;
+  --muted: #6b7280;
+  --border: #e3dccd;
+  --border-strong: #cfc6b4;
+
+  --sky: #2f80ed;
+  --sky-soft: #e3eefc;
+  --pine: #3f9b4a;
+  --pine-soft: #e3f2e1;
+  --ember: #ef7a2b;
+  --ember-soft: #fdebdc;
+  --berry: #c2415d;
+
+  --accent: var(--sky);
+  --accent-ink: #ffffff;
+
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 1px 2px rgba(29, 35, 48, 0.06), 0 8px 24px -12px rgba(29, 35, 48, 0.18);
+  --shadow-pixel: 4px 4px 0 0 rgba(29, 35, 48, 0.12);
+  --ring: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+
+  --nav-h: 64px;
+  --page-max: 1200px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #11141b;
+  --bg-grid: rgba(255, 255, 255, 0.03);
+  --surface: #181c25;
+  --surface-2: #1e2330;
+  --ink: #ebe8e1;
+  --ink-2: #c9c5bc;
+  --muted: #9aa1ad;
+  --border: #2a303d;
+  --border-strong: #3a4252;
+  --sky: #5b9cf5;
+  --sky-soft: #1b2a42;
+  --pine: #5cbf68;
+  --pine-soft: #1b3122;
+  --ember: #f59450;
+  --ember-soft: #3a2616;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+  --shadow-pixel: 4px 4px 0 0 rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}

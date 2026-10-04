@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    init: true
+    env_file: .env.server
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: "3001"
+      SITE_ORIGIN: ${SITE_ORIGIN:?Set SITE_ORIGIN to your public HTTPS origin}
+      SITE_DATA_DIR: ${DOCKER_SITE_DATA_DIR:-/app/data}
+    volumes:
+      - site_data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+    networks:
+      - site
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      SITE_ORIGIN: ${SITE_ORIGIN:?Set SITE_ORIGIN to your public HTTPS origin}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./tools/deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - site
+volumes:
+  site_data:
+    name: ${SITE_DATA_VOLUME:-awesome-me-data}
+  caddy_data:
+  caddy_config:
+networks:
+  site:

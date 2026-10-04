@@ -1,0 +1,46 @@
+import { afterEach, describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { tmpdir } from 'node:os';
+import { openDatabase, type SiteDatabase } from '../../../server/db/database';
+import { ContentService } from '../../../server/content/service';
+import { importLegacyContent } from '../../../server/migration/import';
+const databases: SiteDatabase[] = [], dirs: string[] = [];
+afterEach(() => { databases.splice(0).forEach(db => db.close()); dirs.splice(0).forEach(dir => rmSync(dir, { recursive: true, force: true })); });
+describe('migration of bundled demo content', () => {
+  it('leaves no partially imported content if one legacy article is invalid', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'personal-site-invalid-import-')); dirs.push(dir);
+    const bundle = path.join(dir, 'public/content/essays/bad'); mkdirSync(bundle, { recursive: true });
+    writeFileSync(path.join(bundle, 'index.md'), '---\ntitle: [unclosed\n---\nbody');
+    const db = openDatabase(':memory:'); databases.push(db);
+    const content = new ContentService(db);
+    await expect(importLegacyContent({ db, content, sourceRoot: dir, dataDir: path.join(dir, 'data') })).rejects.toThrow();
+    expect(content.list('gallery')).toHaveLength(0);
+    expect(content.list('profile')).toHaveLength(0);
+  });
+  it('preserves all content, stable paths and assets and never overwrites a newer edit', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'personal-site-import-')); dirs.push(dir);
+    const db = openDatabase(path.join(dir, 'site.sqlite')); databases.push(db);
+    const content = new ContentService(db);
+    const first = await importLegacyContent({ content, db, sourceRoot: process.cwd(), dataDir: dir });
+    expect(first.imported.essays).toBe(4);
+    expect(first.imported.gallery).toBe(3);
+    expect(content.list('brands')).toHaveLength(1);
+    expect(content.list('music')).toHaveLength(1);
+    expect(content.list('footprints')).toHaveLength(2);
+    expect(content.list('wishes')).toHaveLength(1);
+    expect(content.get('profile', 'default')?.data.name).toBe('示例站主');
+    expect(content.publicSnapshot().essays.essays.some(e => e.id === '使用指南/getting-started')).toBe(true);
+    expect(content.essayBody('使用指南/getting-started')).toContain('npm ci');
+    expect(content.publicSnapshot().footprints.find(f => f.id === 'demo-park')?.photos).toEqual(['demo-mountains', 'demo-lake']);
+    expect(existsSync(path.join(dir, 'legacy/content/gallery/mountains.webp'))).toBe(true);
+    expect(existsSync(path.join(dir, 'legacy/content/essays/使用指南/getting-started/index.md'))).toBe(false);
+    const photo = content.get('gallery', 'demo-mountains')!;
+    content.update('gallery', photo.id, { ...photo.data, title: '后台更新后的示例图片' }, photo.revision);
+    const second = await importLegacyContent({ content, db, sourceRoot: process.cwd(), dataDir: dir });
+    expect(second.imported.essays).toBe(0);
+    expect(second.skipped).toBeGreaterThan(0);
+    expect(content.get('gallery', photo.id)?.data.title).toBe('后台更新后的示例图片');
+    expect(content.list('essays')).toHaveLength(4);
+  });
+});
