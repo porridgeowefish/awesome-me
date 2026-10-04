@@ -4,7 +4,22 @@
 
 公开项目仅包含**虚构资料和原创示例素材**。小游戏与像素动画默认关闭，可以在后台开启。
 
-![从创作到发布](docs/images/workflow.svg)
+![awesome-me 首页：虚构个人资料与项目经历](docs/images/home.jpg)
+
+<details>
+<summary>查看图库与图文文章截图</summary>
+
+图库展示照片、文字记录和关联足迹：
+
+![图库页面：原创山景插画与文字记录](docs/images/gallery.jpg)
+
+文章支持图片、代码、表格、数学公式和 Mermaid 图：
+
+![图文阅读页面：系统使用指南](docs/images/article.jpg)
+
+</details>
+
+以上均为项目自带示例数据的实际页面截图。
 
 ## 五分钟开始
 
@@ -25,6 +40,8 @@ npm run dev:full
 FFmpeg 安装需要下载平台二进制；网络受限时，可在安装前设置 `FFMPEG_BIN` 为本机已有 FFmpeg 的绝对路径，运行时也保留此配置。Docker 镜像使用系统 FFmpeg。
 
 ## 从示例学会使用
+
+![从创作到发布](docs/images/workflow.svg)
 
 网站自带 4 篇可编辑的图文指南，也可在这里直接阅读：
 
