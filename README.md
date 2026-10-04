@@ -39,6 +39,24 @@ npm run dev:full
 
 FFmpeg 安装需要下载平台二进制；网络受限时，可在安装前设置 `FFMPEG_BIN` 为本机已有 FFmpeg 的绝对路径，运行时也保留此配置。Docker 镜像使用系统 FFmpeg。
 
+## 高德地图配置（可选）
+
+**每位部署者申请并使用自己的高德凭据**。仓库只提供空模板，不包含作者的 Key。无需在线地图时，三项留空即可：网站使用离线足迹示意图，地点仍可手动填写。
+
+在[高德开放平台控制台](https://console.amap.com/)注册开发者、创建应用，然后分别添加两种 Key：
+
+| 配置项 | 在高德申请什么 | 本项目用途 |
+| --- | --- | --- |
+| `AMAP_WEB_KEY` | 服务平台为「Web端（JS API）」的 Key | 公开页面的在线互动地图 |
+| `AMAP_SECURITY_CODE` | 与上面同一个 JS API Key 配套的安全密钥（jscode） | 服务端地图代理，不能用 Web 服务 Key 代替 |
+| `AMAP_SERVICE_KEY` | 服务平台为「Web服务」的另一枚 Key | 后台地点搜索、逆地理编码与 GPS 坐标转换 |
+
+申请步骤见高德官方的 [JS API 准备指南](https://lbs.amap.com/api/javascript-api-v2/prerequisites)与 [Web 服务 Key 指南](https://lbs.amap.com/api/webservice/create-project-and-key)。在线地图需要前两项配套，后台地点查询使用第三项。
+
+把凭据填进项目根目录的 `.env.server`，保存后重启 API 服务（开发模式重新运行 `npm run dev:full`，生产模式重启 Node 服务或应用容器）。在高德控制台按实际部署域名设置 Web Key 的域名白名单。
+
+`.env.server` 已被 Git 忽略。Web 服务 Key 和安全密钥仅由服务端使用，项目已内置[高德推荐的安全代理](https://lbs.amap.com/api/javascript-api-v2/guide/abc/jscode)；JS API 的 Web Key 会提供给浏览器。所有凭据都不要写进文章、README、公开源码或 `VITE_` 环境变量。
+
 ## 从示例学会使用
 
 ![从创作到发布](docs/images/workflow.svg)
